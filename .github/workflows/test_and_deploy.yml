@@ -15,5 +15,5 @@ jobs:
           DEBUG_INFO1: ${{toJson(github)}}
         run: echo "$DEBUG_INFO1"
       - env:
-          DEBUG_INFO2: $github
+          DEBUG_INFO2: ${{github}}
         run: echo "$DEBUG_INFO2"
