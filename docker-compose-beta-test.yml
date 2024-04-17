@@ -1,0 +1,9 @@
+version: '3.7'
+services:
+  beta-main-instance:
+    build:
+      context: ./beta
+      target: test-stage
+    environment:
+      - NODE_ENV=test
+    command: ['pnpm i --config.confirmModulesPurge=false && exec pnpm run test']

@@ -1,0 +1,10 @@
+{
+  "name": "test-docker-ghcr",
+  "version": "1.0.0",
+  "description": "Repository to get comfortable with docker build and pushing to ghcr",
+  "main": "index.js",
+  "scripts": {
+    "alpha-test": "docker compose -f docker-compose-alpha-test.yml -p alpha-test up --abort-on-container-exit --exit-code-from alpha-main-instance --build --remove-orphans",
+    "beta-test": "docker compose -f docker-compose-beta-test.yml -p beta-test up --abort-on-container-exit --exit-code-from beta-main-instance --build --remove-orphans"
+  }
+}

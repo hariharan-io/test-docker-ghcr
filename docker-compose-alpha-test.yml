@@ -1,0 +1,9 @@
+version: '3.7'
+services:
+  alpha-main-instance:
+    build:
+      context: ./alpha
+      target: test-stage
+    environment:
+      - NODE_ENV=test
+    command: ['pnpm i --config.confirmModulesPurge=false && exec pnpm run test']
