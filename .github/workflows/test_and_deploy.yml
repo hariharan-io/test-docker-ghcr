@@ -1,16 +1,30 @@
-name: Run tests and on success, build the container images
+name: Run tests and build the container images
 
 on:
   release:
   pull_request:
   push: { branches: [main] }
 
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+
+permissions:
+  contents: read
+  packages: write
+
 jobs:
   test:
-    name: 'Run tests'
-    runs-on: 'ubuntu-latest'
+    name: "Run tests"
+    runs-on: "ubuntu-latest"
     steps:
       - uses: actions/checkout@v4
       - env:
           DEBUG_INFO1: ${{toJson(github)}}
+        run: echo "$DEBUG_INFO1"
+      - name: Docker meta
+        id: meta
+        uses: docker/metadata-action@v5
+      - env:
+          DEBUG_INFO1: ${{toJson(steps.meta)}}
         run: echo "$DEBUG_INFO1"
