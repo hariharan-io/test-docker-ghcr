@@ -4,7 +4,9 @@ on:
   release:
     types:
       - "published"
-  push: { branches: [main] }
+  push: 
+    branches: 
+      - "main"
 
 env:
   REGISTRY: ghcr.io
@@ -38,7 +40,13 @@ jobs:
         id: meta-alpha
         uses: docker/metadata-action@v5
         with:
-          images: ${{ env.REGISTRY }}/${{ env.ALPHA_IMAGE_NAME }}        
+          images: ${{ env.REGISTRY }}/${{ env.ALPHA_IMAGE_NAME }}
       - env:
           DEBUG_INFO1: ${{toJson(steps.meta-alpha)}}
         run: echo "$DEBUG_INFO1"
+      - name: Build and push
+        uses: docker/build-push-action@v5
+        with:
+          push: true
+          tags: ${{ env.REGISTRY }}/${{ env.REGISTRY_NAMESPACE }}/${{ env.ALPHA_IMAGE_NAME }}:${{ github.sha }}
+          file: './alpha'
