@@ -65,15 +65,3 @@ jobs:
           tags: ${{ steps.meta-beta.outputs.tags }}
           annotations: ${{ steps.meta-beta.outputs.annotations }}
           context: './beta'
-      - uses: actions/delete-package-versions@v5
-        with: 
-          package-name: 'alpha'
-          package-type: 'docker'
-          min-versions-to-keep: 1
-          delete-only-untagged-versions: 'true'
-      - uses: actions/delete-package-versions@v5
-        with: 
-          package-name: 'beta'
-          package-type: 'docker'
-          min-versions-to-keep: 1
-          delete-only-untagged-versions: 'true'
