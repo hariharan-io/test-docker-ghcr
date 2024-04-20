@@ -36,50 +36,41 @@ jobs:
           DEBUG_INFO1: ${{toJson(github)}}
         run: echo "$DEBUG_INFO1"
       - run: env | sort
-      - name: Docker meta
+      - name: Docker meta alpha
         id: meta-alpha
         uses: docker/metadata-action@v5
         with:
-          # list of Docker images to use as base name for tags
           images: |
             ${{ env.REGISTRY }}/${{ env.REGISTRY_NAMESPACE }}/${{ env.ALPHA_IMAGE_NAME }}
-          # generate Docker tags based on the following events/attributes
           tags: |
-            type=schedule
-            type=ref,event=branch
-            type=ref,event=pr
-            type=semver,pattern={{version}}
-            type=semver,pattern={{major}}.{{minor}}
-            type=semver,pattern={{major}}
-            type=sha         
+            type=semver,pattern={{raw}}
+            type=sha
+      - name: Docker meta beta
+        id: meta-beta
+        uses: docker/metadata-action@v5
+        with:
+          images: |
+            ${{ env.REGISTRY }}/${{ env.REGISTRY_NAMESPACE }}/${{ env.BETA_IMAGE_NAME }}
+          tags: |
+            type=semver,pattern={{raw}}
+            type=sha
       - env:
-          DEBUG_INFO1: ${{toJson(steps.meta-alpha)}}
-        run: echo "$DEBUG_INFO1"
-      - name: "Build and push normal build - alpha"
+          DEBUG_META_ALPHA: ${{toJson(steps.meta-alpha)}}
+        run: echo "$DEBUG_META_ALPHA"
+      - env:
+          DEBUG_META_BETA: ${{toJson(steps.meta-alpha)}}
+        run: echo "$DEBUG_META_BETA"
+      - name: "Build and push alpha"
         uses: docker/build-push-action@v5
-        if: github.event_name == 'push'
         with:
           push: true
-          tags: ${{ env.REGISTRY }}/${{ env.REGISTRY_NAMESPACE }}/${{ env.ALPHA_IMAGE_NAME }}:${{ github.sha }}
+          tags: ${{ steps.meta-alpha.outputs.tags }}
+          annotations: ${{ steps.meta-alpha.outputs.annotations }}          
           context: './alpha'
-      - name: "Build and push normal build - beta"
+      - name: "Build and push beta"
         uses: docker/build-push-action@v5
-        if: github.event_name == 'push'
         with:
           push: true
-          tags: ${{ env.REGISTRY }}/${{ env.REGISTRY_NAMESPACE }}/${{ env.ALPHA_IMAGE_NAME }}:${{ github.sha }}
+          tags: ${{ steps.meta-beta.outputs.tags }}
+          annotations: ${{ steps.meta-beta.outputs.annotations }}
           context: './beta'
-      - name: "Build and push tagged/released build - alpha"
-        uses: docker/build-push-action@v5
-        if: github.event_name == 'release'
-        with:
-          push: true
-          tags: ${{ env.REGISTRY }}/${{ env.REGISTRY_NAMESPACE }}/${{ env.ALPHA_IMAGE_NAME }}:${{ github.sha }}
-          context: './alpha'
-      - name: "Build and push tagged/released build - beta"
-        uses: docker/build-push-action@v5
-        if: github.event_name == 'release'
-        with:
-          push: true
-          tags: ${{ env.REGISTRY }}/${{ env.REGISTRY_NAMESPACE }}/${{ env.ALPHA_IMAGE_NAME }}:${{ github.sha }}
-          context: './alpha'
