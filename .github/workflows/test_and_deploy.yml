@@ -23,8 +23,9 @@ jobs:
     name: "Run tests"
     runs-on: "ubuntu-latest"
     steps:
-      - uses: actions/checkout@v4
-      - name: Set up Docker Buildx
+      - name: Checkout project
+        uses: actions/checkout@v4
+      - name: Set up improved Docker Buildx support
         uses: docker/setup-buildx-action@v3
       - name: Login to GitHub Container Registry
         uses: docker/login-action@v3
@@ -32,11 +33,7 @@ jobs:
           registry: ${{ env.REGISTRY }}
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-      - env:
-          DEBUG_INFO1: ${{toJson(github)}}
-        run: echo "$DEBUG_INFO1"
-      - run: env | sort
-      - name: Docker meta alpha
+      - name: Obtain tag information for alpha
         id: meta-alpha
         uses: docker/metadata-action@v5
         with:
@@ -45,7 +42,7 @@ jobs:
           tags: |
             type=semver,pattern={{raw}}
             type=sha
-      - name: Docker meta beta
+      - name: Obtain tag information for beta
         id: meta-beta
         uses: docker/metadata-action@v5
         with:
@@ -54,12 +51,6 @@ jobs:
           tags: |
             type=semver,pattern={{raw}}
             type=sha
-      - env:
-          DEBUG_META_ALPHA: ${{toJson(steps.meta-alpha)}}
-        run: echo "$DEBUG_META_ALPHA"
-      - env:
-          DEBUG_META_BETA: ${{toJson(steps.meta-alpha)}}
-        run: echo "$DEBUG_META_BETA"
       - name: "Build and push alpha"
         uses: docker/build-push-action@v5
         with:
@@ -74,3 +65,15 @@ jobs:
           tags: ${{ steps.meta-beta.outputs.tags }}
           annotations: ${{ steps.meta-beta.outputs.annotations }}
           context: './beta'
+      - uses: actions/delete-package-versions@v5
+        with: 
+          package-name: 'alpha'
+          package-type: 'docker'
+          min-versions-to-keep: 1
+          delete-only-untagged-versions: 'true'
+      - uses: actions/delete-package-versions@v5
+        with: 
+          package-name: 'beta'
+          package-type: 'docker'
+          min-versions-to-keep: 1
+          delete-only-untagged-versions: 'true'
