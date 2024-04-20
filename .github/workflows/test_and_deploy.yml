@@ -44,14 +44,28 @@ jobs:
       - env:
           DEBUG_INFO1: ${{toJson(steps.meta-alpha)}}
         run: echo "$DEBUG_INFO1"
-      - name: "Build and push normal build"
+      - name: "Build and push normal build - alpha"
         uses: docker/build-push-action@v5
         if: github.event_name == 'push'
         with:
           push: true
           tags: ${{ env.REGISTRY }}/${{ env.REGISTRY_NAMESPACE }}/${{ env.ALPHA_IMAGE_NAME }}:${{ github.sha }}
           context: './alpha'
-      - name: "Build and push tagged/released build"
+      - name: "Build and push normal build - beta"
+        uses: docker/build-push-action@v5
+        if: github.event_name == 'push'
+        with:
+          push: true
+          tags: ${{ env.REGISTRY }}/${{ env.REGISTRY_NAMESPACE }}/${{ env.ALPHA_IMAGE_NAME }}:${{ github.sha }}
+          context: './beta'
+      - name: "Build and push tagged/released build - alpha"
+        uses: docker/build-push-action@v5
+        if: github.event_name == 'release'
+        with:
+          push: true
+          tags: ${{ env.REGISTRY }}/${{ env.REGISTRY_NAMESPACE }}/${{ env.ALPHA_IMAGE_NAME }}:${{ github.sha }}
+          context: './alpha'
+      - name: "Build and push tagged/released build - beta"
         uses: docker/build-push-action@v5
         if: github.event_name == 'release'
         with:
