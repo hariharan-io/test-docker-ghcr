@@ -62,7 +62,7 @@ jobs:
           tags: ${{ steps.meta-alpha.outputs.tags }}
           annotations: ${{ steps.meta-alpha.outputs.annotations }}          
           context: './alpha'
-          target: 'production-stag'
+          target: 'production-stage'
       - name: "Build and push beta"
         uses: docker/build-push-action@v5
         with:
@@ -70,4 +70,4 @@ jobs:
           tags: ${{ steps.meta-beta.outputs.tags }}
           annotations: ${{ steps.meta-beta.outputs.annotations }}
           context: './beta'
-          target: 'production-stag'
+          target: 'production-stage'
