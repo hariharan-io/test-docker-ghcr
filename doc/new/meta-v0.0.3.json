@@ -1,0 +1,43 @@
+{
+  "outputs": {
+    "version": "0.0.3",
+    "tags": "ghcr.io/hariharan-io/alpha:0.0.3\nghcr.io/hariharan-io/alpha:0.0\nghcr.io/hariharan-io/alpha:0\nghcr.io/hariharan-io/alpha:sha-397c3b3\nghcr.io/hariharan-io/alpha:latest",
+    "labels": "org.opencontainers.image.created=2024-04-20T07:46:21.218Z\norg.opencontainers.image.description=Repository to get comfortable with docker build and pushing to ghcr\norg.opencontainers.image.licenses=\norg.opencontainers.image.revision=397c3b35ba22adc6a35ae52b03c3fc16b7800c33\norg.opencontainers.image.source=https://github.com/hariharan-io/test-docker-ghcr\norg.opencontainers.image.title=test-docker-ghcr\norg.opencontainers.image.url=https://github.com/hariharan-io/test-docker-ghcr\norg.opencontainers.image.version=0.0.3",
+    "annotations": "manifest:org.opencontainers.image.created=2024-04-20T07:46:21.218Z\nmanifest:org.opencontainers.image.description=Repository to get comfortable with docker build and pushing to ghcr\nmanifest:org.opencontainers.image.licenses=\nmanifest:org.opencontainers.image.revision=397c3b35ba22adc6a35ae52b03c3fc16b7800c33\nmanifest:org.opencontainers.image.source=https://github.com/hariharan-io/test-docker-ghcr\nmanifest:org.opencontainers.image.title=test-docker-ghcr\nmanifest:org.opencontainers.image.url=https://github.com/hariharan-io/test-docker-ghcr\nmanifest:org.opencontainers.image.version=0.0.3",
+    "json": {
+      "tags": [
+        "ghcr.io/hariharan-io/alpha:0.0.3",
+        "ghcr.io/hariharan-io/alpha:0.0",
+        "ghcr.io/hariharan-io/alpha:0",
+        "ghcr.io/hariharan-io/alpha:sha-397c3b3",
+        "ghcr.io/hariharan-io/alpha:latest"
+      ],
+      "labels": {
+        "org.opencontainers.image.created": "2024-04-20T07:46:21.218Z",
+        "org.opencontainers.image.description": "Repository to get comfortable with docker build and pushing to ghcr",
+        "org.opencontainers.image.licenses": "",
+        "org.opencontainers.image.revision": "397c3b35ba22adc6a35ae52b03c3fc16b7800c33",
+        "org.opencontainers.image.source": "https://github.com/hariharan-io/test-docker-ghcr",
+        "org.opencontainers.image.title": "test-docker-ghcr",
+        "org.opencontainers.image.url": "https://github.com/hariharan-io/test-docker-ghcr",
+        "org.opencontainers.image.version": "0.0.3"
+      },
+      "annotations": [
+        "manifest:org.opencontainers.image.created=2024-04-20T07:46:21.218Z",
+        "manifest:org.opencontainers.image.description=Repository to get comfortable with docker build and pushing to ghcr",
+        "manifest:org.opencontainers.image.licenses=",
+        "manifest:org.opencontainers.image.revision=397c3b35ba22adc6a35ae52b03c3fc16b7800c33",
+        "manifest:org.opencontainers.image.source=https://github.com/hariharan-io/test-docker-ghcr",
+        "manifest:org.opencontainers.image.title=test-docker-ghcr",
+        "manifest:org.opencontainers.image.url=https://github.com/hariharan-io/test-docker-ghcr",
+        "manifest:org.opencontainers.image.version=0.0.3"
+      ]
+    },
+    "bake-file-tags": "/home/runner/work/_temp/docker-actions-toolkit-QvnW0m/docker-metadata-action-bake-tags.json",
+    "bake-file-labels": "/home/runner/work/_temp/docker-actions-toolkit-QvnW0m/docker-metadata-action-bake-labels.json",
+    "bake-file-annotations": "/home/runner/work/_temp/docker-actions-toolkit-QvnW0m/docker-metadata-action-bake-annotations.json",
+    "bake-file": "/home/runner/work/_temp/docker-actions-toolkit-QvnW0m/docker-metadata-action-bake.json"
+  },
+  "outcome": "success",
+  "conclusion": "success"
+}
